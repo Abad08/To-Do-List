@@ -8,7 +8,7 @@ function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <span className="text-xl font-bold text-blue-600">TodoMaster</span>
+              <span className="text-xl font-bold text-blue-600">ToDoApp</span>
             </div>
             <div className="flex items-center space-x-4">
               <Link to="/login" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900">
@@ -18,7 +18,7 @@ function Landing() {
                 to="/register"
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
               >
-                Register
+                Registrarse
               </Link>
             </div>
           </div>
@@ -30,40 +30,40 @@ function Landing() {
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
           <div>
             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-              <span className="block">Organize your tasks</span>
-              <span className="block text-blue-600">with TodoMaster</span>
+              <span className="block">Organiza tus tareas</span>
+              <span className="block text-blue-600">con ToDoApp</span>
             </h1>
             <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg md:mt-5 md:text-xl">
-              The simple, effective way to manage your daily tasks. Stay organized, focused, and productive with our
-              intuitive todo list application.
+              La manera simple y efectiva de manejar tus tareas diarias. Mantente organizado, enfocado, y productivo con nuestra
+              aplicación de ToDo List.
             </p>
             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4">
               <Link
                 to="/register"
                 className="w-full sm:w-auto flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
               >
-                Get Started - It's Free
+                Registrate - Es gratis
               </Link>
               <Link
                 to="/login"
                 className="w-full sm:w-auto flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
               >
-                Login to Your Account
+                Inicia sesión con tu cuenta
               </Link>
             </div>
           </div>
           <div className="mt-12 lg:mt-0 flex justify-center">
             <div className="bg-white p-5 rounded-lg shadow-xl border border-gray-200 w-full max-w-md">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-semibold text-gray-900">My Tasks</h2>
-                <span className="text-sm text-gray-500">Today</span>
+                <h2 className="text-lg font-semibold text-gray-900">Mis tareas</h2>
+                <span className="text-sm text-gray-500">Hoy</span>
               </div>
               {/* Sample Todo Items */}
               {[
-                { id: 1, text: "Complete project proposal", completed: true },
-                { id: 2, text: "Meeting with design team", completed: false },
-                { id: 3, text: "Research new technologies", completed: false },
-                { id: 4, text: "Update portfolio website", completed: false },
+                { id: 1, text: "Completar propuesta de proyecto", completed: true },
+                { id: 2, text: "Reunión con el equipo de diseño", completed: false },
+                { id: 3, text: "Trabajo de investigación", completed: false },
+                { id: 4, text: "Actualizar mi LinkedIn", completed: false },
               ].map((todo) => (
                 <div key={todo.id} className="flex items-center py-2">
                   <div
@@ -79,7 +79,7 @@ function Landing() {
               <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex items-center">
                   <div className="w-5 h-5 rounded-full border border-gray-300 mr-3"></div>
-                  <span className="text-gray-400">Add a new task...</span>
+                  <span className="text-gray-400">Añade una nueva tarea...</span>
                 </div>
               </div>
             </div>
@@ -91,9 +91,9 @@ function Landing() {
       <div className="bg-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900">Why Choose TodoMaster?</h2>
+            <h2 className="text-3xl font-extrabold text-gray-900">¿Por qué elegir ToDoApp?</h2>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-              Simple, powerful, and designed for productivity.
+              Simple, poderosa y diseñada para la productividad.
             </p>
           </div>
 
@@ -101,16 +101,16 @@ function Landing() {
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 {
-                  title: "Easy to Use",
-                  description: "Intuitive interface that makes task management simple and straightforward.",
+                  title: "Fácil de usar",
+                  description: "interfaz intuitiva que convierte el administrar tareas simple y sencillo.",
                 },
                 {
-                  title: "Stay Organized",
-                  description: "Categorize tasks, set priorities, and never miss a deadline again.",
+                  title: "Mantente organizado",
+                  description: "Nombra tus tareas, coloca prioridades, Y nunca más olvides una fecha límite.",
                 },
                 {
-                  title: "Access Anywhere",
-                  description: "Cloud-based solution that works on all your devices, wherever you are.",
+                  title: "Accede desde tu dispositivo",
+                  description: "Con una base de datos SQL, te permite acceder desde tu dispotivo de preferencia",
                 },
               ].map((feature, index) => (
                 <div key={index} className="pt-6">
@@ -136,8 +136,8 @@ function Landing() {
       <div className="bg-blue-600">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
           <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            <span className="block">Ready to get started?</span>
-            <span className="block text-blue-200">Create your free account today.</span>
+            <span className="block">¿Listo para iniciar?</span>
+            <span className="block text-blue-200">Crea tu cuenta de manera gratuita ahora.</span>
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
             <div className="inline-flex rounded-md shadow">
@@ -145,7 +145,7 @@ function Landing() {
                 to="/register"
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50"
               >
-                Register Now
+                Regístrate
               </Link>
             </div>
             <div className="ml-3 inline-flex rounded-md shadow">
@@ -153,35 +153,14 @@ function Landing() {
                 to="/login"
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-900"
               >
-                Login
+                Inicia sesión
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-800">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-white font-bold text-xl">TodoMaster</p>
-              <p className="text-gray-400 mt-2">© {new Date().getFullYear()} TodoMaster. All rights reserved.</p>
-            </div>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-gray-300">
-                Terms
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-300">
-                Privacy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-300">
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   )
 }
