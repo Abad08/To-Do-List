@@ -133,7 +133,7 @@ function FindTask() {
 
           <div className="border-t border-gray-200 p-6 flex justify-between">
             <Link to="/dashboard" className="text-sm font-medium text-blue-600 hover:text-blue-500">
-              Volver al dashboard
+              Volver al Dashboard
             </Link>
             <Link to="/task-list" className="text-sm font-medium text-blue-600 hover:text-blue-500">
               Ver todas las tareas
