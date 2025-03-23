@@ -1,26 +1,34 @@
-import { useState } from "react"
-import { send } from "../utils/apiClient"
+import { useEffect, useState } from "react"
+import { send } from "../../utils/apiClient"
+import { useNavigate } from "react-router"
 function Login() {
-    //   AQUI
   const [user, setUser] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const navigate = useNavigate()
 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const response = await send(`/api/Usuario/login?username=${user}&password=${password}`,{})
     if (response.idUsuario){
-        localStorage.setItem(
+        sessionStorage.setItem(
             "idUsuario",
             response.idUsuario
         )
+
         setError("")
-        return
+        navigate("/Dashboard")
     }
     setError(response)
-    console.log(response)
   }
+
+  useEffect(()=>{
+    const isthereAnyUser = sessionStorage.getItem("idUsuario")
+    if(isthereAnyUser){
+      navigate("/dashboard")
+    }
+  },[])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">

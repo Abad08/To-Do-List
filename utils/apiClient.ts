@@ -17,3 +17,20 @@ export const send = async (endpoint: string, payload: any, method: string = 'POS
 };
 
 
+export const clientDelete = async (endpoint: string, method: string = 'DELETE') => {
+  const res = await fetch(`${apiUrl}${endpoint}`, {
+    method,
+    headers: { 'Content-Type': 'application/json' }
+  });
+  if (!res.ok) throw new Error(`${method} ${endpoint} failed`);
+  return res.json();
+};
+
+export const patch = async (endpoint: string, method: string = 'PATCH') => {
+  const res = await fetch(`${apiUrl}${endpoint}`, {
+    method,
+    headers: { 'Content-Type': 'application/json' }
+  });
+  if (!res.ok) throw new Error(`${method} ${endpoint} failed`);
+  return res.json();
+};

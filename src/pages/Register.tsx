@@ -1,9 +1,7 @@
-"use client"
-
-import { useState } from "react"
-import { send } from "../utils/apiClient"
+import { useEffect, useState } from "react"
+import { send } from "../../utils/apiClient"
 import { Link } from "react-router-dom"
-
+import { useNavigate } from "react-router-dom"
 function Register() {
   const [formData, setFormData] = useState({
     username: "",
@@ -11,7 +9,7 @@ function Register() {
     confirmPassword: "",
   })
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
-
+  const navigate = useNavigate()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({
@@ -69,7 +67,12 @@ function Register() {
       setErrors(validationErrors)
     }
   }
-
+  useEffect(() => {
+    const isthereAnyUser = sessionStorage.getItem("idUsuario")
+    if(isthereAnyUser){
+      navigate("/dashboard")
+    }
+  }, [])
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
