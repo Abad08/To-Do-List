@@ -34,3 +34,5 @@ export const patch = async (endpoint: string, method: string = 'PATCH') => {
   if (!res.ok) throw new Error(`${method} ${endpoint} failed`);
   return res.json();
 };
+
+

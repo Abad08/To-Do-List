@@ -6,6 +6,7 @@ import Register from './pages/Register.tsx';
 import TaskList from './pages/TaskList.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import NotFound from './pages/NotFound.tsx'
+import CreateTask from './pages/CreateTask.tsx';
 import "./app.css"
 
 
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
       <Route path="/Register" element={<Register />} />
       <Route path="/task-list" element={<TaskList />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/create-task" element={<CreateTask />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>,

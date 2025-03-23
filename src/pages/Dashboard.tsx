@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Search, PlusCircle, CheckCircle, Clock, List, Home, LogOut, Menu, X, Settings } from "lucide-react"
+import { Search, PlusCircle, CheckCircle, Clock, List, Home, LogOut, Menu, X } from "lucide-react"
 import { Task }  from "../../types/tasks"
 import { get } from "../../utils/apiClient"
 
@@ -35,17 +35,17 @@ function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
+      {/* Encabezado */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
             <button className="md:hidden mr-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            <h1 className="text-xl font-bold text-gray-900">TodoMaster</h1>
+            <h1 className="text-xl font-bold text-gray-900">ToDoApp</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">Welcome</span>
+            <span className="text-sm text-gray-600">Bienvenido</span>
             <div 
             onClick={() => {
               sessionStorage.removeItem("idUsuario")
@@ -59,7 +59,7 @@ function Dashboard() {
       </header>
 
       <div className="flex flex-1">
-        {/* Sidebar */}
+        {/* Barra lateral */}
         <aside
           className={`
           bg-white shadow-sm w-64 fixed inset-y-0 pt-16 md:pt-0 md:static 
@@ -78,58 +78,58 @@ function Dashboard() {
                 className="w-full flex items-center space-x-2 px-4 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100"
               >
                 <List size={18} />
-                <span>Show Tasks</span>
+                <span>Mostrar Tareas</span>
               </Link>
               <Link
                 to="/create-task"
                 className="w-full flex items-center space-x-2 px-4 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100"
               >
                 <PlusCircle size={18} />
-                <span>Create Task</span>
+                <span>Crear Tarea</span>
               </Link>
               <Link
                 to="/find-tasks"
                 className="w-full flex items-center space-x-2 px-4 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100"
               >
                 <Search size={18} />
-                <span>Find Tasks</span>
+                <span>Buscar Tarea</span>
               </Link>
             </div>
 
             <div className="mt-8">
-              <h3 className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Task Status</h3>
+              <h3 className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Estado de Tareas</h3>
               <div className="mt-2 space-y-1">
                 <Link
-                  to="/tasks?status=pending"
+                  to="/task-list"
                   className="w-full flex items-center justify-between px-4 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100"
                 >
                   <div className="flex items-center space-x-2">
                     <Clock size={18} className="text-yellow-500" />
-                    <span>Pending</span>
+                    <span>Pendiente</span>
                   </div>
                   <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded-full">
-                    {filterTasksByEstado(tasks,"pendiente").length}
+                  {filterTasksByEstado(tasks,"Pendiente").length}
                   </span>
                 </Link>
                 <Link
-                  to="/tasks?status=in-progress"
+                  to="/task-list"
                   className="w-full flex items-center justify-between px-4 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100"
                 >
                   <div className="flex items-center space-x-2">
                     <Clock size={18} className="text-blue-500" />
-                    <span>In Progress</span>
+                    <span>En proceso</span>
                   </div>
                   <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">
                     {filterTasksByEstado(tasks,"En proceso").length}
                   </span>
                 </Link>
                 <Link
-                  to="/tasks?status=completed"
+                  to="/task-list"
                   className="w-full flex items-center justify-between px-4 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100"
                 >
                   <div className="flex items-center space-x-2">
                     <CheckCircle size={18} className="text-green-500" />
-                    <span>Completed</span>
+                    <span>Completada</span>
                   </div>
                   <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
                     {filterTasksByEstado(tasks,"Completada").length}
@@ -144,7 +144,7 @@ function Dashboard() {
                 className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
               >
                 <PlusCircle size={18} />
-                <span>Create New Task</span>
+                <span>Crear nueva tarea</span>
               </Link>
             </div>
           </div>
@@ -155,15 +155,15 @@ function Dashboard() {
           <div className="max-w-4xl mx-auto">
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-gray-900">Dashboard</h2>
-              <p className="text-gray-600">Manage your tasks and stay organized</p>
+              <p className="text-gray-600">Maneja tus tareas y mantente organizado</p>
             </div>
 
-            {/* Quick stats */}
+            {/* Estadisticas */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">Total Tasks</p>
+                    <p className="text-sm text-gray-500">Total de tareas</p>
                     <p className="text-2xl font-bold text-gray-900">{tasks.length}</p>
                   </div>
                   <div className="p-3 bg-blue-100 rounded-full">
@@ -174,7 +174,7 @@ function Dashboard() {
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">Pending</p>
+                    <p className="text-sm text-gray-500">Pendiente</p>
                     <p className="text-2xl font-bold text-gray-900">{filterTasksByEstado(tasks,"Pendiente").length}</p>
                   </div>
                   <div className="p-3 bg-yellow-100 rounded-full">
@@ -185,7 +185,7 @@ function Dashboard() {
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">In Progress</p>
+                    <p className="text-sm text-gray-500">En proceso</p>
                     <p className="text-2xl font-bold text-gray-900">{filterTasksByEstado(tasks,"En proceso").length}</p>
                   </div>
                   <div className="p-3 bg-blue-100 rounded-full">
@@ -196,7 +196,7 @@ function Dashboard() {
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">Completed</p>
+                    <p className="text-sm text-gray-500">Completada</p>
                     <p className="text-2xl font-bold text-gray-900">{filterTasksByEstado(tasks,"Completada").length}</p>
                   </div>
                   <div className="p-3 bg-green-100 rounded-full">
@@ -206,7 +206,7 @@ function Dashboard() {
               </div>
             </div>
 
-            {/* Quick access cards */}
+            {/* Cartas de acceso */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Link
                 to="/task-list"
@@ -216,8 +216,8 @@ function Dashboard() {
                   <div className="p-3 bg-blue-100 rounded-full mb-4">
                     <List size={24} className="text-blue-600" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Show Tasks</h3>
-                  <p className="text-gray-500 text-sm">View and manage all your tasks in one place</p>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Mostrar Tareas</h3>
+                  <p className="text-gray-500 text-sm">Observa y maneja tus tareas en un solo lugar</p>
                 </div>
               </Link>
 
@@ -229,8 +229,8 @@ function Dashboard() {
                   <div className="p-3 bg-green-100 rounded-full mb-4">
                     <PlusCircle size={24} className="text-green-600" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Create Task</h3>
-                  <p className="text-gray-500 text-sm">Add a new task to your todo list</p>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Crear Tarea</h3>
+                  <p className="text-gray-500 text-sm">Añade nuevas tareas a tu ToDo List</p>
                 </div>
               </Link>
 
@@ -242,57 +242,10 @@ function Dashboard() {
                   <div className="p-3 bg-purple-100 rounded-full mb-4">
                     <Search size={24} className="text-purple-600" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Find Tasks</h3>
-                  <p className="text-gray-500 text-sm">Search and filter your tasks</p>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Buscar Tarea</h3>
+                  <p className="text-gray-500 text-sm">Busca y filtra tus tareas</p>
                 </div>
               </Link>
-            </div>
-
-            {/* Recent activity - placeholder */}
-            <div className="mt-8">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-gray-900">Recent Activity</h3>
-                <Link to="/tasks" className="text-sm text-blue-600 hover:text-blue-500">
-                  View all
-                </Link>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <div className="divide-y divide-gray-200">
-                  {[
-                    { action: "Created task", task: "Update project documentation", time: "2 hours ago" },
-                    { action: "Completed task", task: "Design new logo", time: "Yesterday" },
-                    { action: "Updated task", task: "Fix login page bug", time: "2 days ago" },
-                  ].map((activity, index) => (
-                    <div key={index} className="p-4 hover:bg-gray-50">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 mr-3">
-                          {activity.action.includes("Created") && (
-                            <div className="p-2 bg-blue-100 rounded-full">
-                              <PlusCircle size={16} className="text-blue-600" />
-                            </div>
-                          )}
-                          {activity.action.includes("Completed") && (
-                            <div className="p-2 bg-green-100 rounded-full">
-                              <CheckCircle size={16} className="text-green-600" />
-                            </div>
-                          )}
-                          {activity.action.includes("Updated") && (
-                            <div className="p-2 bg-yellow-100 rounded-full">
-                              <Settings size={16} className="text-yellow-600" />
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">
-                            {activity.action}: <span className="font-normal">{activity.task}</span>
-                          </p>
-                          <p className="text-xs text-gray-500">{activity.time}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </main>

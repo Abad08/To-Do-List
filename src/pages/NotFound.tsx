@@ -6,7 +6,7 @@ export default function NotFound() {
           <div className="container mx-auto px-4 py-6">
             <div className="flex items-center">
               <h1 className="text-3xl font-bold text-gray-800">
-                <span className="text-blue-600">✓</span> TaskMaster
+                <span className="text-blue-600">✓</span> ToDoApp
               </h1>
             </div>
           </div>

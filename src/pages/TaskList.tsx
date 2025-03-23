@@ -1,129 +1,102 @@
+import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { Task } from "../../types/tasks"
+import { get, clientDelete } from "../../utils/apiClient"
+import TaskListComponent from "../components/task-list"
 
-import { useEffect, useState } from "react"
-import TaskListComponent from "../components/task-list.tsx"
-import { Task } from "../../types/tasks.ts"
-import { useNavigate } from "react-router"
-import { get } from "../../utils/apiClient.ts"
-
-type Tab = "all" | "pending" | "in-progress" | "completed"
-
-export default function TaskDemo() {
-  const [activeTab, setActiveTab] = useState<Tab>("all")
-  const [tasks, setTasks] = useState<Task[]>([])
+export default function TaskList() {
   const navigate = useNavigate()
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([])
+  const [activeTab, setActiveTab] = useState<string>("Todos")
 
-  useEffect(()=>{
-    const getTaskList = async () => {
-      const idUsuario = sessionStorage.getItem("idUsuario");
+  const fetchTasks = async () => {
+    const idUsuario = sessionStorage.getItem("idUsuario")
+    if (!idUsuario) return navigate("/login")
 
-      if (!idUsuario){
-        navigate("/login")
-        return
-      }
-      const taskList = await get(`/api/Tareas?idUsuario=${idUsuario}`)
-
-      if (taskList){
-
-        setTasks(
-          taskList as unknown as Task[]
-        )
-      }
+    const response = await get(`/api/Tareas?idUsuario=${idUsuario}`)
+    if (response) {
+      setTasks(response)
+      filterTasks(response, activeTab)
     }
-    getTaskList()
-  },[])
-
-  const filteredTasks = tasks.filter((task) => {
-    if (activeTab === "all") return true
-    if (activeTab === "pending") return task.estado === "Pendiente"
-    if (activeTab === "in-progress") return task.estado === "En proceso"
-    if (activeTab === "completed") return task.estado === "Completado"
-    return true
-  })
-
-  const handleTaskUpdate = (updatedTask: Task) => {
-    setTasks(tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task)))
   }
 
-  const handleTaskDelete = (taskId: number) => {
-    setTasks(tasks.filter((task) => task.id !== taskId))
+  useEffect(() => {
+    fetchTasks()
+  }, [])
+
+  const filterTasks = (allTasks: Task[], estado: string) => {
+    if (estado === "Todos") {
+      setFilteredTasks(allTasks)
+    } else {
+      const filtradas = allTasks.filter((task) => task.estado === estado)
+      setFilteredTasks(filtradas)
+    }
   }
+
+  const handleTabClick = (estado: string) => {
+    setActiveTab(estado)
+    filterTasks(tasks, estado)
+  }
+
+  const handleDelete = async (id: number) => {
+    const idUsuario = sessionStorage.getItem("idUsuario")
+    await clientDelete(`/api/Tareas/delete/${idUsuario}/${id}`)
+    await fetchTasks() 
+  }
+
+  const handleUpdate = (updatedTask: Task) => {
+    const updated = tasks.map((task) =>
+      task.id === updatedTask.id ? updatedTask : task
+    )
+    setTasks(updated)
+    filterTasks(updated, activeTab)
+  }
+
+  const tabs = ["Todos", "Pendiente", "En proceso", "Completada", "Cancelada"]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="bg-white shadow-md">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800">
-                <span className="text-blue-600">✓</span> TaskMaster
-              </h1>
-              <p className="text-gray-500 mt-1">Gestiona tus tareas de forma eficiente</p>
-            </div>
-            <button
-              onClick={() => {navigate("/create-task")}}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center self-start md:self-center"
-            >
-              <span className="mr-2">+</span> Nueva Tarea
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Navigation Tabs */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4">
-          <nav className="flex overflow-x-auto">
-            <button
-              onClick={() => setActiveTab("all")}
-              className={`px-4 py-3 font-medium text-sm whitespace-nowrap ${
-                activeTab === "all" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-600 hover:text-gray-800"
-              }`}
-            >
-              Todas las Tareas
-            </button>
-            <button
-              onClick={() => setActiveTab("pending")}
-              className={`px-4 py-3 font-medium text-sm whitespace-nowrap ${
-                activeTab === "pending"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600 hover:text-gray-800"
-              }`}
-            >
-              Pendientes
-            </button>
-            <button
-              onClick={() => setActiveTab("in-progress")}
-              className={`px-4 py-3 font-medium text-sm whitespace-nowrap ${
-                activeTab === "in-progress"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600 hover:text-gray-800"
-              }`}
-            >
-              En Proceso
-            </button>
-            <button
-              onClick={() => setActiveTab("completed")}
-              className={`px-4 py-3 font-medium text-sm whitespace-nowrap ${
-                activeTab === "completed"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600 hover:text-gray-800"
-              }`}
-            >
-              Completadas
-            </button>
-          </nav>
+    <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Mis Tareas</h1>
+        <div className="flex gap-4">
+          <Link
+            to="/create-task"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            + Nueva tarea
+          </Link>
+          <Link
+            to="/dashboard"
+            className="px-4 py-2 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-400"
+          >
+            Volver al Dashboard
+          </Link>
         </div>
       </div>
 
-      {/* Main Content */}
-      <main className="container mx-auto py-8 px-4">
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <TaskListComponent tasks={filteredTasks} onTaskUpdate={handleTaskUpdate} onTaskDelete={handleTaskDelete} />
-        </div>
-      </main>
+      <div className="flex gap-4 mb-4 border-b pb-2">
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => handleTabClick(tab)}
+            className={`text-sm font-medium px-3 py-1 rounded-full transition-colors border 
+              ${
+                activeTab === tab
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+              }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
 
+      <TaskListComponent
+        tasks={filteredTasks}
+        onTaskUpdate={handleUpdate}
+        onTaskDelete={handleDelete}
+      />
     </div>
   )
 }
-
