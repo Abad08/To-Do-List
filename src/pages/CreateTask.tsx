@@ -42,21 +42,24 @@ function CreateTask() {
     })
   }
 
-  const validate = () => {
+  const validate = () => { 
     const newErrors: { [key: string]: string } = {}
-
+  
     if (!formData.nombre.trim()) {
       newErrors.nombre = "El nombre de la tarea es requerido"
     } else if (formData.nombre.length > 50) {
       newErrors.nombre = "El nombre de la tarea debe tener menos de 50 caracteres"
     }
-
-    if (formData.descripcion && formData.descripcion.length > 100) {
+  
+    if (!formData.descripcion.trim()) {
+      newErrors.descripcion = "La descripción de la tarea es requerida"
+    } else if (formData.descripcion.length > 100) {
       newErrors.descripcion = "La descripción de la tarea debe tener menos de 100 caracteres"
     }
-
+  
     return newErrors
   }
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -123,7 +126,7 @@ function CreateTask() {
                   name="nombre"
                   type="text"
                   required
-                  placeholder="Enter task name"
+                  placeholder="Ingrese el nombre de la tarea"
                   className={`block w-full rounded-md border ${
                     errors.nombre ? "border-red-500" : "border-gray-300"
                   } px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500`}
@@ -135,13 +138,13 @@ function CreateTask() {
 
               <div className="space-y-2">
                 <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700">
-                  Descripción
+                  Descripción <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="descripcion"
                   name="descripcion"
                   rows={4}
-                  placeholder="Enter task description (optional)"
+                  placeholder="Ingrese una descripción (obligatorio)"
                   className={`block w-full rounded-md border ${
                     errors.descripcion ? "border-red-500" : "border-gray-300"
                   } px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500`}
