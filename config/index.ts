@@ -1,1 +1,1 @@
-export const apiUrl = "todolist-api-abad-avaje0erguh5bhgk.canadacentral-01.azurewebsites.net";
+export const apiUrl = "todolist-api-abad-avaje0erguh5bhgk.mexicocentral-01.azurewebsites.net";
