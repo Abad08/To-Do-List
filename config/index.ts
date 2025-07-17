@@ -1,1 +1,1 @@
-export const apiUrl = "https://localhost:7123"
+export const apiUrl = "todolist-api-abad-avaje0erguh5bhgk.canadacentral-01.azurewebsites.net";
